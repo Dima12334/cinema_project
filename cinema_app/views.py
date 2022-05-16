@@ -8,27 +8,32 @@ from django.contrib.auth.models import User, Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth import authenticate, login
-from .models import Cinema
+from .models import *
 from .forms import AuthUserForm, RegisterUserForm
 
 
 class HomeView(ListView):
-    model = Cinema
+    model = Films
     template_name = 'cinema_app/index.html'
+    context_object_name = 'films'
+
+    def get_context_data(self, **kwargs):
+        kwargs['example'] = Films.objects.all().order_by('rating')
+        return super().get_context_data(**kwargs)
 
 
 class SelectCinemaView(DetailView):
-    model = Cinema
+    # model = Cinema
     template_name = 'cinema_app/select_cinema.html'
 
 
 class BookTicketView(UpdateView):
-    model = Cinema
+    # model = Cinema
     template_name = 'cinema_app/book_ticket.html'
 
 
 class BuyTicketView(UpdateView):
-    model = Cinema
+    # model = Cinema
     template_name = 'cinema_app/buy_ticket.html'
 
 
@@ -56,7 +61,7 @@ class LoginPage(LoginView):
 
 
 class RegisterPage(CreateView):
-    model = Cinema
+    # model = Cinema
     template_name = 'cinema_app/register.html'
     form_class = RegisterUserForm
     success_url = reverse_lazy('home')

@@ -33,6 +33,31 @@
             <a class="nav-link {% if url_buy_ticket == request.path %} active {% endif %}" href="{{ url_buy_ticket }}">Купить билет</a>
           </li>
 
+            {% if request.user.is_authenticated %}
+
+              <li class="nav-item">
+                  {% url 'logout-page' as url_logout_page %}
+                <a class="nav-link {% if url_logout_page == request.path %} active {% endif %}" href="{{ url_logout_page }}">Выйти</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link active" >Добро пожаловать, {{request.user}}</a>
+              </li>
+
+              {% else %}
+
+              <li class="nav-item">
+                  {% url 'login-page' as url_login_page %}
+                <a class="nav-link {% if url_login_page == request.path %} active {% endif %}" href="{{ url_login_page }}">Войти</a>
+              </li>
+
+              <li class="nav-item">
+                  {% url 'register-page' as url_register_page %}
+                <a class="nav-link {% if url_register_page == request.path %} active {% endif %}" href="{{ url_register_page }}">Зарегистрироватся</a>
+              </li>
+
+            {% endif %}
+
         </ul>
 
     {% block content %}
