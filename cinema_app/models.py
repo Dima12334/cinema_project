@@ -16,18 +16,18 @@ class TimeSessions(models.Model):
 
 
 class CinemaHalls(models.Model):
-
+    number_hall = models.IntegerField(verbose_name='Номер кінозалу')
     row_count = models.IntegerField(verbose_name='Кількість рядів')
     ticket_count = models.IntegerField(verbose_name='Кількість квитків')
-    session = models.ForeignKey(TimeSessions, on_delete=models.CASCADE, verbose_name='Сеанс', blank=True,
-                                null=True)  # id_session
+    # session = models.ForeignKey(TimeSessions, on_delete=models.CASCADE, verbose_name='Сеанс', blank=True,
+    #                            null=True)  # id_session
 
     class Meta:
         verbose_name = 'Кінозал'
         verbose_name_plural = 'Кінозали'
 
     def __str__(self):
-        return f'{self.id} кінозал'
+        return f'{self.number_hall} кінозал'
 
 
 class Films(models.Model):
@@ -82,7 +82,7 @@ class Cinemas(models.Model):
         verbose_name_plural = 'Кінотеатри'
 
     def __str__(self):
-        return f'{self.city} {self.address} {self.film}'
+        return f'{self.city} {self.film}'
 
 
 class Tickets(models.Model):

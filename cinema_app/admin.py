@@ -14,9 +14,9 @@ class TimeSessionsAdmin(admin.ModelAdmin):
 
 @admin.register(CinemaHalls)
 class CinemaHallsAdmin(admin.ModelAdmin):
-    list_display = ['row_count', 'ticket_count', 'session']
-    list_display_links = ['row_count', 'ticket_count', 'session']
-    ordering = ['session']
+    list_display = ['number_hall', 'row_count', 'ticket_count']
+    list_display_links = ['number_hall', 'row_count', 'ticket_count']
+    ordering = ['id']
     list_per_page = 7
 
 
@@ -30,9 +30,9 @@ class FilmsAdmin(admin.ModelAdmin):
 
 @admin.register(FilmDetails)
 class FilmDetailsAdmin(admin.ModelAdmin):
-    list_display = ['age', 'year', 'director', 'rental_period_from', 'rental_period_to', 'language', 'genre',
+    list_display = ['film', 'age', 'year', 'director', 'rental_period_from', 'rental_period_to', 'language', 'genre',
                     'duration', 'production', 'scenario', 'main_roles']
-    list_display_links = ['age', 'year', 'director', 'rental_period_from', 'rental_period_to', 'language', 'genre',
+    list_display_links = ['film', 'age', 'year', 'director', 'rental_period_from', 'rental_period_to', 'language', 'genre',
                           'duration', 'production', 'scenario', 'main_roles']
     ordering = ['genre']
     list_per_page = 7
