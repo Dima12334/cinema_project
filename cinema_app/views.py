@@ -13,12 +13,12 @@ from .forms import AuthUserForm, RegisterUserForm
 
 
 class HomeView(ListView):
-    model = Films
+    model = Film
     template_name = 'cinema_app/index.html'
     context_object_name = 'films'
 
     def get_context_data(self, **kwargs):
-        kwargs['example'] = Films.objects.all().order_by('rating')
+        kwargs['example'] = Film.objects.all().order_by('rating')
         return super().get_context_data(**kwargs)
 
 

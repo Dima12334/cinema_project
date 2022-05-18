@@ -1,10 +1,9 @@
 from django.db import models
-from django import forms
 from django.urls import reverse
 from django.contrib.auth.models import User
 
 
-class TimeSessions(models.Model):
+class TimeSession(models.Model):
     time_session = models.TimeField(verbose_name='Сеанс')
 
     class Meta:
@@ -15,10 +14,11 @@ class TimeSessions(models.Model):
         return f'{self.time_session}'
 
 
-class CinemaHalls(models.Model):
+class CinemaHall(models.Model):
     number_hall = models.IntegerField(verbose_name='Номер кінозалу')
     row_count = models.IntegerField(verbose_name='Кількість рядів')
     ticket_count = models.IntegerField(verbose_name='Кількість квитків')
+
     # session = models.ForeignKey(TimeSessions, on_delete=models.CASCADE, verbose_name='Сеанс', blank=True,
     #                            null=True)  # id_session
 
@@ -30,15 +30,15 @@ class CinemaHalls(models.Model):
         return f'{self.number_hall} кінозал'
 
 
-class Films(models.Model):
+class Film(models.Model):
     film_title = models.CharField(max_length=25, verbose_name='Назва фільму')
-    rating = models.FloatField(verbose_name='Рейтинг фільму')
     ticket_price = models.IntegerField(verbose_name='Ціна квитка')
-    hall = models.ForeignKey(CinemaHalls, on_delete=models.CASCADE, verbose_name='Зал', blank=True,
+    hall = models.ForeignKey(CinemaHall, on_delete=models.CASCADE, verbose_name='Зал', blank=True,
                              null=True)  # hall_id
     story = models.TextField(verbose_name='Сюжет')
-    session = models.ForeignKey(TimeSessions, on_delete=models.CASCADE, verbose_name='Сеанс', blank=True,
+    session = models.ForeignKey(TimeSession, on_delete=models.CASCADE, verbose_name='Сеанс', blank=True,
                                 null=True)  # id_session
+    poster = models.ImageField(upload_to='cinema_app/static/cinema_app/img')
 
     class Meta:
         verbose_name = 'Фільм'
@@ -48,8 +48,48 @@ class Films(models.Model):
         return f'{self.film_title}'
 
 
-class FilmDetails(models.Model):
-    film = models.ForeignKey(Films, on_delete=models.CASCADE, verbose_name='Назва фільму', blank=True,
+class RatingStar(models.Model):
+    value = models.IntegerField(verbose_name='Рейтинг фільму')
+
+    class Meta:
+        verbose_name = 'Зірка'
+        verbose_name_plural = 'Зірки'
+
+    def __str__(self):
+        return f'{self.value}'
+
+
+class Rating(models.Model):
+    film = models.ForeignKey(Film, on_delete=models.CASCADE, verbose_name='Назва фільму', blank=True,
+                             null=True)  # film_id
+    rating_value = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name='Кількість зірок', blank=True,
+                                     null=True)  # value_id
+
+    class Meta:
+        verbose_name = 'Рейтинг фільму'
+        verbose_name_plural = 'Рейтинги фільмів'
+
+    def __str__(self):
+        return f'{self.film} -- {self.rating_value} *'
+
+
+class Review(models.Model):
+    email = models.EmailField()
+    name = models.CharField(max_length=100)
+    text = models.TextField(max_length=5000)
+    film = models.ForeignKey(Film, on_delete=models.CASCADE, verbose_name='Назва фільму', blank=True,
+                             null=True)  # film_id
+
+    class Meta:
+        verbose_name = 'Відгук'
+        verbose_name_plural = 'Відгуки'
+
+    def __str__(self):
+        return f'{self.film} -- {self.text}'
+
+
+class FilmDetail(models.Model):
+    film = models.ForeignKey(Film, on_delete=models.CASCADE, verbose_name='Назва фільму', blank=True,
                              null=True)  # film_id
     age = models.IntegerField(verbose_name='Вік')
     year = models.IntegerField(verbose_name='Рік')
@@ -62,6 +102,8 @@ class FilmDetails(models.Model):
     production = models.CharField(max_length=40, verbose_name='Виробництво')
     scenario = models.TextField(verbose_name='Сценарій')
     main_roles = models.TextField(verbose_name='У головних ролях')
+    rating = models.ForeignKey(Rating, on_delete=models.CASCADE, verbose_name='Рейтинг фільму', blank=True,
+                               null=True)  # rating_value
 
     class Meta:
         verbose_name = 'Деталі фільму'
@@ -72,9 +114,9 @@ class FilmDetails(models.Model):
         {self.language} {self.genre} {self.duration} {self.production} {self.scenario} {self.main_roles}'
 
 
-class Cinemas(models.Model):
+class Cinema(models.Model):
     city = models.CharField(max_length=25, verbose_name='Місто')
-    film = models.ForeignKey(Films, on_delete=models.CASCADE, verbose_name='Назва фільму', blank=True,
+    film = models.ForeignKey(Film, on_delete=models.CASCADE, verbose_name='Назва фільму', blank=True,
                              null=True)  # film_id
 
     class Meta:
@@ -85,8 +127,8 @@ class Cinemas(models.Model):
         return f'{self.city} {self.film}'
 
 
-class Tickets(models.Model):
-    hall = models.OneToOneField(CinemaHalls, on_delete=models.CASCADE, verbose_name='Зал', blank=True,
+class Ticket(models.Model):
+    hall = models.OneToOneField(CinemaHall, on_delete=models.CASCADE, verbose_name='Зал', blank=True,
                                 null=True)  # hall_id
     purchased_ticket = models.IntegerField(verbose_name='Продані квитки')
 
