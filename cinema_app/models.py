@@ -38,7 +38,7 @@ class Film(models.Model):
     story = models.TextField(verbose_name='Сюжет')
     session = models.ForeignKey(TimeSession, on_delete=models.CASCADE, verbose_name='Сеанс', blank=True,
                                 null=True)  # id_session
-    poster = models.ImageField(upload_to='cinema_app/static/cinema_app/img')
+    poster = models.ImageField(upload_to='cinema_app/static/cinema_app/images')
 
     class Meta:
         verbose_name = 'Фільм'
@@ -73,21 +73,6 @@ class Rating(models.Model):
         return f'{self.film} -- {self.rating_value} *'
 
 
-class Review(models.Model):
-    email = models.EmailField()
-    name = models.CharField(max_length=100)
-    text = models.TextField(max_length=5000)
-    film = models.ForeignKey(Film, on_delete=models.CASCADE, verbose_name='Назва фільму', blank=True,
-                             null=True)  # film_id
-
-    class Meta:
-        verbose_name = 'Відгук'
-        verbose_name_plural = 'Відгуки'
-
-    def __str__(self):
-        return f'{self.film} -- {self.text}'
-
-
 class FilmDetail(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, verbose_name='Назва фільму', blank=True,
                              null=True)  # film_id
@@ -114,6 +99,21 @@ class FilmDetail(models.Model):
         {self.language} {self.genre} {self.duration} {self.production} {self.scenario} {self.main_roles}'
 
 
+class Review(models.Model):
+    email = models.EmailField()
+    name = models.CharField(max_length=100)
+    text = models.TextField(max_length=5000)
+    film = models.ForeignKey(FilmDetail, on_delete=models.CASCADE, verbose_name='Назва фільму', blank=True,
+                             null=True)  # film_id
+
+    class Meta:
+        verbose_name = 'Відгук'
+        verbose_name_plural = 'Відгуки'
+
+    def __str__(self):
+        return f'{self.film} -- {self.text}'
+
+
 class Cinema(models.Model):
     city = models.CharField(max_length=25, verbose_name='Місто')
     film = models.ForeignKey(Film, on_delete=models.CASCADE, verbose_name='Назва фільму', blank=True,
@@ -124,7 +124,7 @@ class Cinema(models.Model):
         verbose_name_plural = 'Кінотеатри'
 
     def __str__(self):
-        return f'{self.city} {self.film}'
+        return f'{self.city} -- {self.film}'
 
 
 class Ticket(models.Model):

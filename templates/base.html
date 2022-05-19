@@ -36,7 +36,7 @@
             {% if request.user.is_authenticated %}
 
               <li class="nav-item">
-                  {% url 'logout-page' as url_logout_page %}
+                  {% url 'account_logout' as url_logout_page %}
                 <a class="nav-link {% if url_logout_page == request.path %} active {% endif %}" href="{{ url_logout_page }}">Выйти</a>
               </li>
 
@@ -47,12 +47,12 @@
               {% else %}
 
               <li class="nav-item">
-                  {% url 'login-page' as url_login_page %}
+                  {% url 'account_login' as url_login_page %}
                 <a class="nav-link {% if url_login_page == request.path %} active {% endif %}" href="{{ url_login_page }}">Войти</a>
               </li>
 
               <li class="nav-item">
-                  {% url 'register-page' as url_register_page %}
+                  {% url 'account_signup' as url_register_page %}
                 <a class="nav-link {% if url_register_page == request.path %} active {% endif %}" href="{{ url_register_page }}">Зарегистрироватся</a>
               </li>
 

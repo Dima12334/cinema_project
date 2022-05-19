@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
+
 from .models import *
 
 
@@ -22,10 +24,22 @@ class CinemaHallAdmin(admin.ModelAdmin):
 
 @admin.register(Film)
 class FilmAdmin(admin.ModelAdmin):
-    list_display = ['film_title', 'ticket_price', 'hall', 'story', 'session']
+    list_display = ['film_title', 'ticket_price', 'hall', 'story', 'session', 'get_image']
     list_display_links = ['film_title', 'ticket_price', 'hall', 'story', 'session']
     ordering = ['film_title']
+    readonly_fields = ['get_image']
     list_per_page = 7
+
+    def get_image(self, obj):
+        return mark_safe(f'<img src={obj.poster.url} width="50" height="60"')
+
+    get_image.short_description = 'Постер'
+
+
+class ReviewInline(admin.TabularInline):
+    model = Review
+    extra = 1
+    readonly_fields = ['name', 'email']
 
 
 @admin.register(FilmDetail)
@@ -36,6 +50,9 @@ class FilmDetailAdmin(admin.ModelAdmin):
                           'genre', 'duration', 'production', 'scenario', 'main_roles', 'rating']
     ordering = ['genre']
     list_per_page = 7
+    inlines = [ReviewInline]
+    save_on_top = True
+    save_as = True
 
 
 @admin.register(Cinema)
@@ -48,16 +65,18 @@ class CinemaAdmin(admin.ModelAdmin):
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ['hall']
-    list_display_links = ['hall']
+    list_display = ['hall', 'purchased_ticket']
+    list_display_links = ['hall', 'purchased_ticket']
     ordering = ['hall']
+    readonly_fields = ['purchased_ticket']
     list_per_page = 7
 
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ['name', 'text', 'film']
+    list_display = ['name', 'email', 'text', 'film']
     ordering = ['film']
+    readonly_fields = ['name', 'email']
     list_per_page = 7
 
 
@@ -75,3 +94,7 @@ class RatingAdmin(admin.ModelAdmin):
     list_display_links = ['film', 'rating_value']
     ordering = ['film']
     list_per_page = 7
+
+
+admin.site.site_header = 'Управление cinema'
+admin.site.index_title = 'Админка сайта'
