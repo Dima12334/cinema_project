@@ -24,11 +24,13 @@ class CinemaHallAdmin(admin.ModelAdmin):
 
 @admin.register(Film)
 class FilmAdmin(admin.ModelAdmin):
-    list_display = ['film_title', 'ticket_price', 'hall', 'story', 'session', 'get_image']
-    list_display_links = ['film_title', 'ticket_price', 'hall', 'story', 'session']
+    list_display = ['film_title', 'ticket_price', 'hall', 'story', 'session', 'get_image', 'city_name']
+    list_display_links = ['film_title', 'ticket_price', 'hall', 'story', 'session', 'city_name']
     ordering = ['film_title']
     readonly_fields = ['get_image']
     list_per_page = 7
+    save_on_top = True
+    save_as = True
 
     def get_image(self, obj):
         return mark_safe(f'<img src={obj.poster.url} width="50" height="60"')
@@ -55,12 +57,20 @@ class FilmDetailAdmin(admin.ModelAdmin):
     save_as = True
 
 
-@admin.register(Cinema)
-class CinemaAdmin(admin.ModelAdmin):
-    list_display = ['city', 'film']
-    list_display_links = ['city', 'film']
-    ordering = ['city']
-    list_per_page = 7
+# @admin.register(Cities)
+# class CitiesAdmin(admin.ModelAdmin):
+#     list_display = ['city_name']
+#     list_display_links = ['city_name']
+#     ordering = ['city_name']
+#     list_per_page = 7
+#
+#
+# @admin.register(CinemaFilms)
+# class CinemaFilmsAdmin(admin.ModelAdmin):
+#     list_display = ['city', 'film']
+#     list_display_links = ['city', 'film']
+#     ordering = ['city']
+#     list_per_page = 7
 
 
 @admin.register(Ticket)

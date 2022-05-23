@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
+from django.views.generic import ListView, DetailView, UpdateView, View
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
@@ -8,8 +8,8 @@ from django.contrib.auth.models import User, Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth import authenticate, login
+from django.db.models import Q
 from .models import *
-from .forms import AuthUserForm, RegisterUserForm
 
 
 class HomeView(ListView):
@@ -22,9 +22,15 @@ class HomeView(ListView):
         return super().get_context_data(**kwargs)
 
 
-class SelectCinemaView(DetailView):
-    # model = Cinema
-    template_name = 'cinema_app/select_cinema.html'
+class Search(ListView):
+
+    def get_queryset(self):
+        return Film.objects.filter(city_name__icontains=self.request.GET.get("q"))
+
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super().get_context_data(*args, **kwargs)
+    #     context["q"] = self.request.GET.get("q")
+    #     return context
 
 
 class BookTicketView(UpdateView):
