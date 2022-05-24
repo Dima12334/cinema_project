@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'cinema_app',
     'allauth',
+    'bootstrap',
     'allauth.account',
 ]
 
@@ -113,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uk'
 
 CMS_LANGUAGES = {
 

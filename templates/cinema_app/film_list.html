@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} {% endblock title %}
+{% block title %} Актуальні фільми {% endblock title %}
 {% block content %}
     <div class="left-ads-display col-lg-9">
         <div class="row">
@@ -11,7 +11,11 @@
                             <img src="{{ film.poster.url }}" class="img-fluid" alt="">
                         </div>
                         <div class="item-info-product">
-                            <h4 class="">{{ film.film_title }}</h4>
+                            <a href="{{ film.get_absolute_url }}"> {{ film.film_title }}</a>
+                            <h5>Ціна квитка: {{ film.ticket_price }}</h5>
+                            <h5>Кінозал номер {{ film.hall }}</h5>
+                            <h5>Сюжет: {{ film.story }}</h5>
+                            <h5>Сеанс на {{ film.session }}</h5>
                         </div>
                     </div>
                 </div>

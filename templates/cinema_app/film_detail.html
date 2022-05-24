@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} Актуальні фільми {{film.city_name}} {% endblock title %}
+
+{% block content %}
+    <div class=" product-men">
+        <div class="men-thumb-item">
+            <img src="{{ film.poster.url }}" class="img-fluid" alt="" width="200" height="240">
+        </div>
+        <h2>{{ film.film_title }}</h2>
+        <h5>Ціна квитка: {{ film.ticket_price }}</h5>
+        <h5>Кінозал номер {{ film.hall }}</h5>
+        <h5>Сюжет: {{ film.story }}</h5>
+        <h5>Сеанс на {{ film.session }}</h5>
+        <h5>Вік: {{ film.age }}</h5>
+        <h5>Рік: {{ film.year }}</h5>
+        <h5>Режисер: {{ film.director }}</h5>
+        <h5>В прокаті від {{ film.rental_period_from }} до {{ film.rental_period_to }} </h5>
+        <h5>Мова озвучки: {{ film.language }}</h5>
+        <h5>Жанр: {{ film.genre }}</h5>
+        <h5>Триває {{ film.duration }} год.</h5>
+        <h5>Виробництво: {{ film.production }}</h5>
+        <h5>Головні ролі: {{ film.main_roles }}</h5>
+        <h5>Рейтинг фільму: {{ film.rating }}/5 </h5>
+    </div>
+{% endblock content %}

@@ -22,13 +22,24 @@ class CinemaHallAdmin(admin.ModelAdmin):
     list_per_page = 7
 
 
+class ReviewInline(admin.TabularInline):
+    model = Review
+    extra = 1
+    readonly_fields = ['name', 'email']
+
+
 @admin.register(Film)
 class FilmAdmin(admin.ModelAdmin):
-    list_display = ['film_title', 'ticket_price', 'hall', 'story', 'session', 'get_image', 'city_name']
-    list_display_links = ['film_title', 'ticket_price', 'hall', 'story', 'session', 'city_name']
+    list_display = ['film_title', 'ticket_price', 'hall', 'story', 'session', 'get_image', 'city_name', 'age', 'year',
+                    'director', 'rental_period_from', 'rental_period_to', 'language', 'genre',
+                    'duration', 'production', 'main_roles', 'rating']
+    list_display_links = ['film_title', 'ticket_price', 'hall', 'story', 'session', 'city_name', 'age', 'year',
+                          'director', 'rental_period_from', 'rental_period_to', 'language', 'genre',
+                          'duration', 'production', 'main_roles', 'rating']
     ordering = ['film_title']
     readonly_fields = ['get_image']
     list_per_page = 7
+    inlines = [ReviewInline]
     save_on_top = True
     save_as = True
 
@@ -38,23 +49,17 @@ class FilmAdmin(admin.ModelAdmin):
     get_image.short_description = 'Постер'
 
 
-class ReviewInline(admin.TabularInline):
-    model = Review
-    extra = 1
-    readonly_fields = ['name', 'email']
-
-
-@admin.register(FilmDetail)
-class FilmDetailAdmin(admin.ModelAdmin):
-    list_display = ['film', 'age', 'year', 'director', 'rental_period_from', 'rental_period_to', 'language', 'genre',
-                    'duration', 'production', 'scenario', 'main_roles', 'rating']
-    list_display_links = ['film', 'age', 'year', 'director', 'rental_period_from', 'rental_period_to', 'language',
-                          'genre', 'duration', 'production', 'scenario', 'main_roles', 'rating']
-    ordering = ['genre']
-    list_per_page = 7
-    inlines = [ReviewInline]
-    save_on_top = True
-    save_as = True
+# @admin.register(FilmDetail)
+# class FilmDetailAdmin(admin.ModelAdmin):
+#     list_display = ['film', 'age', 'year', 'director', 'rental_period_from', 'rental_period_to', 'language', 'genre',
+#                     'duration', 'production', 'scenario', 'main_roles', 'rating']
+#     list_display_links = ['film', 'age', 'year', 'director', 'rental_period_from', 'rental_period_to', 'language',
+#                           'genre', 'duration', 'production', 'scenario', 'main_roles', 'rating']
+#     ordering = ['genre']
+#     list_per_page = 7
+#     inlines = [ReviewInline]
+#     save_on_top = True
+#     save_as = True
 
 
 # @admin.register(Cities)
@@ -90,19 +95,19 @@ class ReviewAdmin(admin.ModelAdmin):
     list_per_page = 7
 
 
-@admin.register(RatingStar)
-class RatingStarAdmin(admin.ModelAdmin):
-    list_display = ['value']
-    list_display_links = ['value']
-    ordering = ['value']
-    list_per_page = 7
+# @admin.register(RatingStar)
+# class RatingStarAdmin(admin.ModelAdmin):
+#     list_display = ['value']
+#     list_display_links = ['value']
+#     ordering = ['value']
+#     list_per_page = 7
 
 
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
-    list_display = ['film', 'rating_value']
-    list_display_links = ['film', 'rating_value']
-    ordering = ['film']
+    list_display = ['rating_value']
+    list_display_links = ['rating_value']
+    ordering = ['rating_value']
     list_per_page = 7
 
 

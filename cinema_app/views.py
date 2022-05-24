@@ -22,6 +22,11 @@ class HomeView(ListView):
         return super().get_context_data(**kwargs)
 
 
+class FilmDetailView(DetailView):
+    model = Film
+    slug_field = "url"
+
+
 class Search(ListView):
 
     def get_queryset(self):
