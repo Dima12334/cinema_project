@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView, UpdateView, View
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, View
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
@@ -9,6 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth import authenticate, login
 from django.db.models import Q
+from .forms import *
 from .models import *
 
 
@@ -36,6 +37,21 @@ class Search(ListView):
     #     context = super().get_context_data(*args, **kwargs)
     #     context["q"] = self.request.GET.get("q")
     #     return context
+
+
+class AddReview(LoginRequiredMixin, View):
+    login_url = reverse_lazy('account_login')
+
+    def post(self, request, pk):
+        form = ReviewForm(request.POST)
+        film = Film.objects.get(id=pk)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.film = film
+            form.name = self.request.user.username
+            form.email = self.request.user.email
+            form.save()
+        return redirect(film.get_absolute_url())
 
 
 class BookTicketView(UpdateView):
