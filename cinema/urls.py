@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('cinema_app.urls')),
     path('accounts/', include('allauth.urls')),
-    #  path('i18n/', include('django.conf.urls.i18n')),
+    # path('i18n/', include('django.conf.urls.i18n')),
 ]
 
 # urlpatterns += i18n_patterns(

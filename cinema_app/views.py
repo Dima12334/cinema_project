@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_protect
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, View
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
@@ -39,8 +40,7 @@ class Search(ListView):
     #     return context
 
 
-class AddReview(LoginRequiredMixin, View):
-    login_url = reverse_lazy('account_login')
+class AddReview(View):
 
     def post(self, request, pk):
         form = ReviewForm(request.POST)
