@@ -18,21 +18,6 @@
             <a class="nav-link {% if url_home == request.path %} active {% endif %}" href="{{ url_home }}">Главная</a>
           </li>
 
-          <li class="nav-item">
-              {% url 'select-cinema' as url_select_cinema %}
-            <a class="nav-link {% if url_select_cinema == request.path %} active {% endif %}" href="{{ url_select_cinema }}">Выбрать кинотеатр</a>
-          </li>
-
-          <li class="nav-item">
-              {% url 'book-ticket' as url_book_ticket %}
-            <a class="nav-link {% if url_book_ticket == request.path %} active {% endif %}" href="{{ url_book_ticket }}">Забронировать билет</a>
-          </li>
-
-          <li class="nav-item">
-              {% url 'buy-ticket' as url_buy_ticket %}
-            <a class="nav-link {% if url_buy_ticket == request.path %} active {% endif %}" href="{{ url_buy_ticket }}">Купить билет</a>
-          </li>
-
             {% if request.user.is_authenticated %}
 
               <li class="nav-item">

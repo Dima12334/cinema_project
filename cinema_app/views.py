@@ -10,8 +10,22 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth import authenticate, login
 from django.db.models import Q
-from .forms import *
+from .forms import BuyTicketForm, ReviewForm
 from .models import *
+
+
+# class CustomSuccessMessageMixin:
+#
+#     @property
+#     def success_msg(self):
+#         return False
+#
+#     def form_valid(self, form):
+#         messages.success(self.request, self.success_msg)
+#         return super().form_valid(form)
+#
+#     def get_success_url(self):
+#         return '%s?id=%s' % (self.success_url, self.object.id)
 
 
 class HomeView(ListView):
@@ -54,27 +68,23 @@ class AddReview(View):
         return redirect(film.get_absolute_url())
 
 
+class BuyTicketView(View):
+
+    def post(self, request, pk, hall):
+        form = BuyTicketForm(request.POST)
+        film = Film.objects.get(id=pk)
+        hall = CinemaHall.objects.get(number_hall=hall)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.film = film
+            form.hall = hall
+            form.save()
+        return redirect(film.get_absolute_url())
+
+
 class BookTicketView(UpdateView):
     # model = Cinema
     template_name = 'cinema_app/book_ticket.html'
 
-
-class BuyTicketView(UpdateView):
-    # model = Cinema
-    template_name = 'cinema_app/buy_ticket.html'
-
-
-class CustomSuccessMessageMixin:
-
-    @property
-    def success_msg(self):
-        return False
-
-    def form_valid(self, form):
-        messages.success(self.request, self.success_msg)
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return '%s?id=%s' % (self.success_url, self.object.id)
 
 
