@@ -10,22 +10,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth import authenticate, login
 from django.db.models import Q
-from .forms import BuyTicketForm, ReviewForm
+from .forms import BuyTicketForm, BookTicketForm, ReviewForm
 from .models import *
-
-
-# class CustomSuccessMessageMixin:
-#
-#     @property
-#     def success_msg(self):
-#         return False
-#
-#     def form_valid(self, form):
-#         messages.success(self.request, self.success_msg)
-#         return super().form_valid(form)
-#
-#     def get_success_url(self):
-#         return '%s?id=%s' % (self.success_url, self.object.id)
+import smtplib
 
 
 class HomeView(ListView):
@@ -82,9 +69,16 @@ class BuyTicketView(View):
         return redirect(film.get_absolute_url())
 
 
-class BookTicketView(UpdateView):
-    # model = Cinema
-    template_name = 'cinema_app/book_ticket.html'
+class BookTicketView(View):
 
-
+    def post(self, request, pk, hall):
+        form = BookTicketForm(request.POST)
+        film = Film.objects.get(id=pk)
+        hall = CinemaHall.objects.get(number_hall=hall)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.film = film
+            form.hall = hall
+            form.save()
+        return redirect(film.get_absolute_url())
 

@@ -3,6 +3,15 @@
 {% block title %} Актуальні фільми {% endblock title %}
 
 {% block content %}
+
+    {% if messages %}
+        <div class="alert alert-success">
+            {% for message in messages %}
+              {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <div class=" product-men">
         <div class="men-thumb-item">
             <img src="{{ film.poster.url }}" class="img-fluid" alt="" width="200" height="240">
@@ -28,11 +37,15 @@
         <div class="single-form-left">
             <div class="contact-single">
                 {% if request.user.is_authenticated %}
-                    <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#buyModal">
                         Придбати квиток
+                    </button>
+                    <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#bookModal">
+                        Забронювати квиток
                     </button>
                 {% else %}
                     <h4>Для того щоб придбати квиток, <a href="{% url 'account_login'%}">увійдіть</a> у свій акаунт або <a href="{% url 'account_signup'%}">зареєструтеся.</a></h4>
+                    <h4>Для того щоб забронювати квиток, <a href="{% url 'account_login'%}">увійдіть</a> у свій акаунт або <a href="{% url 'account_signup'%}">зареєструтеся.</a></h4>
                 {% endif %}
                 <h3 class="editContent" style="outline: none; cursor: inherit;">
                     <span class="sub-tittle editContent"
@@ -67,27 +80,30 @@
     {% endfor %}
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title"  id="exampleModalLabel"><img src="{{ film.poster.url }}" class="img-fluid" alt="" width="50" height="50"></h5>
+        <h5 class="modal-title"  id="buyModalLabel"><img src="media/cinema_app/static/cinema_app/images/cinema_hall.png" class="img-fluid" alt="" width="" height=""></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="{% url 'buy-ticket' film.id film.hall %}" id="add_form" method="post">
+        <form action="{% url 'buy-ticket' film.id film.hall %}" id="buy_form" method="post">
           {% csrf_token %}
           <div class="form-group editContent">
-              <label for="p_ticket" class="editContent">Номер квитка:</label>
-                  <input class="form-control border" name="purchased_ticket" id="p_ticket" style="width: 55px;" required="" >
+              <div class="mt-1">
+                <label>Продані квитки:
+                    {% for ticket in film.ticket_set.all %}
+                        {{ ticket.purchased_ticket }}
+                    {% endfor %}
+                </label>
+              </div>
+              <label for="p_ticket" class="editContent mt-4">Номер квитка:</label>
+                  <input class="form-control border mt-3" name="purchased_ticket" id="p_ticket" style="width: 55px;" required="" >
               <label for="number_card" class="editContent mt-3">Номер карти:</label>
                   <input class="form-control border mt-3" id="number_card" style="width: 200px;" maxlength="25">
               <label for="cvv_card" class="editContent mt-3">CVV2 (3 цифри — вказані на зворотній стороні карти)</label>
                   <input class="form-control border mt-3" type="password" id="cvv_card" style="width: 50px;" maxlength="3">
-<!--                  <div style="display:inline-block">-->
-<!--                      <input class="form-control border mt-3" id="term" style="width: 50px;" maxlength="2">-->
-<!--                      <input class="form-control border mt-3" style="width: 70px;" maxlength="4">-->
-<!--                  </div>-->
               <div class="row addpadding">
                 <label class="editContent mt-3">Дійсна до:</label>
 				    <div class="form-group">
@@ -129,7 +145,7 @@
                                     <span class="valid-ok"></span>
                                 </td>
                             </tr><tr>
-                            </tbody></tr>
+                            </tbody>
                         </table>
                     </div>
                   <div class="clear"></div>
@@ -141,7 +157,7 @@
 
       <div class="modal-footer" style="justify-content:center;">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
-        <button form="add_form" type="submit" class="btn btn-primary">Придбати квиток на {{ film.film_title }}</button>
+        <button form="buy_form" type="submit" class="btn btn-primary">Придбати квиток на {{ film.film_title }}</button>
       </div>
 
           <div class="footer">
@@ -168,7 +184,38 @@
 				</div>
               <div class="add-info"></div>
 		  </div>
+    </div>
+  </div>
+</div>
 
+<!-- Modal -->
+<div class="modal fade" id="bookModal" tabindex="-1" aria-labelledby="bookModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"  id="bookModalLabel"><img src="media/cinema_app/static/cinema_app/images/cinema_hall.png" class="img-fluid" alt="" width="" height=""></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'book-ticket' film.id film.hall %}" id="book_form" method="post">
+          {% csrf_token %}
+          <div class="form-group editContent">
+              <div class="mt-1">
+                <label>Продані квитки:
+                    {% for ticket in film.ticket_set.all %}
+                        {{ ticket.purchased_ticket }}
+                    {% endfor %}
+                </label>
+              </div>
+              <label for="p_ticket" class="editContent mt-4">Номер квитка:</label>
+                  <input class="form-control border mt-3" name="purchased_ticket" id="b_ticket" style="width: 55px;" required="" >
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+        <button form="book_form" type="submit" class="btn btn-primary">Забронювати квиток на {{ film.film_title }}</button>
+      </div>
     </div>
   </div>
 </div>
