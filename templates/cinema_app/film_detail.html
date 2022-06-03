@@ -4,14 +4,6 @@
 
 {% block content %}
 
-    {% if messages %}
-        <div class="alert alert-success">
-            {% for message in messages %}
-              {{ message }}
-            {% endfor %}
-        </div>
-    {% endif %}
-
     <div class=" product-men">
         <div class="men-thumb-item">
             <img src="{{ film.poster.url }}" class="img-fluid" alt="" width="200" height="240">

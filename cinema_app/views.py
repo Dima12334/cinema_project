@@ -9,10 +9,27 @@ from django.contrib.auth.models import User, Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth import authenticate, login
+from django.conf import settings
 from django.db.models import Q
-from .forms import BuyTicketForm, BookTicketForm, ReviewForm
+from .forms import *
 from .models import *
-import smtplib
+from django.core.mail import send_mail
+
+
+# def post_message(request, pk):
+#
+#     form = PostMessageForm()
+#     if request.method == 'POST':
+#         form = PostMessageForm(request.POST)
+#         film = Film.objects.get(id=pk)
+#         if form.is_valid():
+#             form.email = settings.EMAIL_HOST_USER
+#             subject = 'Code Band'
+#             message = 'Sending Email through Gmail'
+#             recipient = form.email
+#             send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
+#             messages.success(request, 'Success!')
+#     return redirect(film.get_absolute_url())
 
 
 class HomeView(ListView):
@@ -21,7 +38,7 @@ class HomeView(ListView):
     context_object_name = 'films'
 
     def get_context_data(self, **kwargs):
-        kwargs['example'] = Film.objects.all().order_by('film_title')
+        kwargs['films'] = Film.objects.all().order_by('film_title')
         return super().get_context_data(**kwargs)
 
 
@@ -66,7 +83,7 @@ class BuyTicketView(View):
             form.film = film
             form.hall = hall
             form.save()
-        return redirect(film.get_absolute_url())
+        return redirect(film.get_absolute_url()) # post_message(request, pk)
 
 
 class BookTicketView(View):
@@ -80,5 +97,4 @@ class BookTicketView(View):
             form.film = film
             form.hall = hall
             form.save()
-        return redirect(film.get_absolute_url())
-
+        return redirect(film.get_absolute_url()) # post_message(request, pk)

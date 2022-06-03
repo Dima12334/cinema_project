@@ -1,15 +1,112 @@
 {% extends 'base.html' %}
 
-{% block title %} index {% endblock %}
+{% block title %} TicketFree Головна {% endblock %}
 
 {% block content %}
-    <div class="search-bar w3layouts-newsletter">
-        <h3 class="sear-head editContent">Пошук фільмів по кінотеатру</h3>
-        <form action="{% url 'search' %}" method="get" class="d-flex editContent">
-            <input type="search" placeholder="Введите название..." name="q" class="form-control" required="">
-            <button type="submit" class="btn1 btn">
-                <span class="fa fa-search" aria-hidden="true"></span>
-            </button>
-        </form>
+    <div  class="mt-2" style="text-align: center;"><img src="static/images/logo1.jpg"></div>
+    <div style="text-align: center;">
+        <h1>Вітаємо Вас у всесвіті TicketFree!</h1>
+        <hr size=4px width=500px color="#9f2939">
+        <h2>Насолоджуйтеся кіно разом з нами</h2>
     </div>
+
+    <div class="comments multiple-items" id="comments">
+        <div class="" style=" text-align: center; padding-top: 30px;" aria-hidden="true">
+            <img src="static/images/film.jpg" style="width: 280px; height: 420px; margin-left: 80px;">
+            <h3>Бетмен</h3>
+        </div>
+        <div class="" style=" text-align: center; padding-top: 30px;" aria-hidden="true">
+            <img src="static/images/film2.jpg" style="width: 280px; height: 420px; margin-left: 80px;">
+            <h3>Морбіус</h3>
+        </div>
+        <div class="" style="text-align: center; padding-top: 30px;" aria-hidden="true">
+            <img src="static/images/film3.jpg" style="width: 280px; height: 420px; margin-left: 80px;">
+            <h3>Фантастичні звірі: Таємниці Дамблдора</h3>
+        </div>
+        <div class="" style=" text-align: center; padding-top: 30px; " aria-hidden="true">
+            <img src="static/images/film4.jpg" style="width: 280px; height: 420px; margin-left: 80px;">
+            <h3>Анчартед: Незвіданне</h3>
+        </div>
+        <div class="" style=" text-align: center; padding-top: 30px; " aria-hidden="true">
+            <img src="static/images/film5.jpg" style="width: 280px; height: 420px; margin-left: 80px;">
+            <h3>Загублене місто D</h3>
+        </div>
+        <div class="" style=" text-align: center; padding-top: 30px;" aria-hidden="true">
+            <img src="static/images/film6.jpg" style="width: 280px; height: 420px; margin-left: 80px;">
+            <h3>Енкантно</h3>
+        </div>
+    </div>
+
+    <hr size=4px width=1000px color="#9f2939" style="margin-top: 60px;">
+
+    <div class="prokat">
+        <h2>Найближчі прем'єри фільмів:</h2>
+        <div class="prokat-films">
+            <div class="prokat-film">
+                <img src="static/images/film.jpg" style="width: 200px;">
+                <h3>Бетмен</h3>
+            </div>
+            <div class="prokat-film">
+                <img src="static/images/film2.jpg" style="width: 200px;">
+                <h3>Морбіус</h3>
+            </div>
+            <div class="prokat-film">
+                <img src="static/images/film3.jpg" style="width: 200px;">
+                <h3>Фантастичні звірі: Таємниці Дамблдора</h3>
+            </div>
+            <div class="prokat-film">
+                <img src="static/images/film4.jpg" style="width: 200px;">
+                <h3>Анчартед: Незвіданне</h3>
+            </div>
+            <div class="prokat-film">
+                <img src="static/images/film5.jpg" style="width: 200px;">
+                <h3>Загублене місто D</h3>
+            </div>
+            <div class="prokat-film">
+                <img src="static/images/film6.jpg" style="width: 200px;">
+                <h3>Енкантно</h3>
+            </div>
+        </div>
+    </div>
+
+    <hr size=4px width=1000px color="#9f2939" style="margin-top: 60px;">
+
+    <div class="menu">
+        <ul style="display: flex; list-style-type: none;width: 300px;font-size: 22px; padding-left: 0px;">
+            <li>Бар:</li>
+        </ul>
+        <div class="meal">
+            <div class="food">
+                <img src="static/images/popcorn.PNG" style="width: 200px;">
+                <p>Розмір:<span style="padding-left:5px;">Великий</span></p>
+                <span>Ціна:<span style="padding-left:5px;">200грн</span></span>
+            </div>
+            <div class="food">
+                <img src="static/images/popcorn.PNG" style="width: 200px;">
+                <p>Розмір:<span style="padding-left:5px;">Середній</span></p>
+                <span>Ціна:<span style="padding-left:5px;">170грн</span></span>
+            </div>
+            <div class="food">
+                <img src="static/images/popcorn.PNG" style="width: 200px;">
+                <p>Розмір:<span style="padding-left:5px;">Маленький</span></p>
+                <span>Ціна:<span style="padding-left:5px;">120грн</span></span>
+            </div>
+            <div class="food">
+                <img src="static/images/cola.jpg" style="width: 200px;">
+                <p>Розмір:<span style="padding-left:5px;">Великий</span></p>
+                <span>Ціна:<span style="padding-left:5px;">200грн</span></span>
+            </div>
+            <div class="food">
+                <img src="static/images/cola.jpg" style="width: 200px;">
+                <p>Розмір:<span style="padding-left:5px;">Середній</span></p>
+                <span>Ціна:<span style="padding-left:5px;">170грн</span></span>
+            </div>
+            <div class="food">
+                <img src="static/images/cola.jpg" style="width: 200px;">
+                <p>Розмір:<span style="padding-left:5px;">Маленький</span></p>
+                <span>Ціна:<span style="padding-left:5px;">120грн</span></span>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
