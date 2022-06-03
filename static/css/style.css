@@ -104,6 +104,7 @@ body{
 }
 .item-info-product{
     width: 800px;
+    text-align: start;
 }
 
 /*Стили для кусков */
@@ -122,27 +123,57 @@ body{
     display: flex;
     flex-direction: column;
 }
-.buy{
-    position: absolute;
-    bottom: 45px;
-    left: 220px;
-    height: 37px;
-    width: 150px;
+.publish{
+    width: 185px;
     background: #9f292f;
     border: 2px solid bisque;
     border-radius: 6px;
-    font-size: 20px;
     color: aliceblue;
+    font-size: 18px;
+    padding: 7px;
+}
+.publish:hover{
+    cursor: pointer;
+    transition: 0.4s;
+    background: green;
+}
+.buy{
+    width: 210px;
+    background: #9f292f;
+    border: 2px solid bisque;
+    border-radius: 6px;
+    color: aliceblue;
+    font-size: 18px;
+    padding: 7px;
+}
+.buy:last-child{
+    margin-left:25px;
 }
 .buy:hover{
     cursor: pointer;
     transition: 0.4s;
     background: green;
 }
+.contact-single{
+    width: fit-content;
+    margin: 0 auto;
+}
+.leave-comments{
+    margin-left:40px;
+}
+.media{
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+.media-img{
+    height: 70px;
+    width: 70px;
+}
+
 
 /*Стили из Bootstrap*/
 
-@charset "UTF-8";
 /*!
  * Bootstrap v5.2.0-beta1 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors
