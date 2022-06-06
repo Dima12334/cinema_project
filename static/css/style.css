@@ -4,16 +4,26 @@ body{
     background: #f5f6fb;
     font-family: 'Playfair Display', serif;
 }
-.a{
+.a-base{
     text-decoration: none;
     margin-right: 15px;
     height: 30px;
     color: beige;
     font-size: 18px;
 }
-.a:hover{
+.a-base:hover{
     cursor: pointer;
     color: lightgray;
+    transition: 0.3s;
+}
+a{
+    text-decoration: none;
+    height: 30px;
+    font-size: 18px;
+}
+a:hover{
+    cursor: pointer;
+    color: green;
     transition: 0.3s;
 }
 .top{
@@ -66,6 +76,16 @@ body{
     text-align: center;
     padding-top: 20px;
 }
+.paysystem{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	padding-bottom:15px
+}
+
 /*Бар*/
 .menu{
     width: 96%;
@@ -197,6 +217,81 @@ body{
     height: 22px;
     padding: 3px;
     margin: 3px;
+}
+
+/*Стили для django-allauth*/
+
+.registration{
+    width: 900px;
+    height: 450px;
+    background: #2d2c72;
+    margin-left: 19%;
+    box-shadow: 0 0 23px rgb(100, 0, 0,1);
+    text-align: center;
+}
+.registration-info{
+    width: 720px;
+    height: 380px;
+    background: white;
+    position: absolute;
+    left: 385px;
+    top: 35px;
+    border-radius: 18px;
+}
+.registration-button{
+    height: 40px;
+    width: 210px;
+    font-size: 17px;
+    margin-top: 20px;
+    border-radius: 8px;
+    border: 1px solid;
+}
+.registration-button:hover{
+    cursor: pointer;
+    transition: 0.3s;
+    background: #b2b2b2;
+}
+
+.reestablish{
+    width: 900px;
+    height: 450px;
+    background: #2d2c72;
+    margin-left: 19%;
+    box-shadow: 0 0 23px rgb(100, 0, 0,1);
+    text-align: center;
+}
+.reestablish-info{
+    width: 720px;
+    height: 380px;
+    background: white;
+    position: absolute;
+    left: 385px;
+    top: 35px;
+    border-radius: 18px;
+}
+.reestablish-form{
+    text-align: left;
+    width: 500px;
+    padding-left: 170px;
+    padding-top: 10px;
+}
+
+.enter{
+    width: 900px;
+    height: 450px;
+    background: #2d2c72;
+    margin-left: 19%;
+    box-shadow: 0 0 23px rgb(100, 0, 0,1);
+    text-align: center;
+}
+.enter-info{
+    width: 720px;
+    height: 380px;
+    background: white;
+    position: absolute;
+    left: 385px;
+    top: 35px;
+    border-radius: 18px;
 }
 
 /*Стили из Bootstrap*/

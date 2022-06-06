@@ -30,5 +30,5 @@ class ReviewForm(forms.ModelForm):
         fields = ('text',)
 
 
-class PostMessageForm(forms.Form):
-    email = forms.EmailField()
+# class PostMessageForm(forms.Form):
+#     email = forms.EmailField()

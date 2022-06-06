@@ -32,7 +32,7 @@ class ReviewInline(admin.TabularInline):
 class FilmAdmin(admin.ModelAdmin):
     list_display = ['film_title', 'ticket_price', 'hall', 'story', 'session', 'get_image', 'city_name', 'age', 'year',
                     'director', 'rental_period_from', 'rental_period_to', 'language', 'genre',
-                    'duration', 'production', 'main_roles', 'rating']
+                    'duration', 'production', 'main_roles', 'rating', 'premiere']
     list_display_links = ['film_title', 'ticket_price', 'hall', 'story', 'session', 'city_name', 'age', 'year',
                           'director', 'rental_period_from', 'rental_period_to', 'language', 'genre',
                           'duration', 'production', 'main_roles', 'rating']
@@ -47,35 +47,6 @@ class FilmAdmin(admin.ModelAdmin):
         return mark_safe(f'<img src={obj.poster.url} width="50" height="60"')
 
     get_image.short_description = 'Постер'
-
-
-# @admin.register(FilmDetail)
-# class FilmDetailAdmin(admin.ModelAdmin):
-#     list_display = ['film', 'age', 'year', 'director', 'rental_period_from', 'rental_period_to', 'language', 'genre',
-#                     'duration', 'production', 'scenario', 'main_roles', 'rating']
-#     list_display_links = ['film', 'age', 'year', 'director', 'rental_period_from', 'rental_period_to', 'language',
-#                           'genre', 'duration', 'production', 'scenario', 'main_roles', 'rating']
-#     ordering = ['genre']
-#     list_per_page = 7
-#     inlines = [ReviewInline]
-#     save_on_top = True
-#     save_as = True
-
-
-# @admin.register(Cities)
-# class CitiesAdmin(admin.ModelAdmin):
-#     list_display = ['city_name']
-#     list_display_links = ['city_name']
-#     ordering = ['city_name']
-#     list_per_page = 7
-#
-#
-# @admin.register(CinemaFilms)
-# class CinemaFilmsAdmin(admin.ModelAdmin):
-#     list_display = ['city', 'film']
-#     list_display_links = ['city', 'film']
-#     ordering = ['city']
-#     list_per_page = 7
 
 
 @admin.register(Ticket)
@@ -95,20 +66,25 @@ class ReviewAdmin(admin.ModelAdmin):
     list_per_page = 7
 
 
-# @admin.register(RatingStar)
-# class RatingStarAdmin(admin.ModelAdmin):
-#     list_display = ['value']
-#     list_display_links = ['value']
-#     ordering = ['value']
-#     list_per_page = 7
-
-
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
     list_display = ['rating_value']
     list_display_links = ['rating_value']
     ordering = ['rating_value']
     list_per_page = 7
+
+
+@admin.register(Buffet)
+class BuffetAdmin(admin.ModelAdmin):
+    list_display = ['get_image', 'name', 'size', 'price']
+    list_display_links = ['name', 'size', 'price']
+    save_on_top = True
+    save_as = True
+
+    def get_image(self, obj):
+        return mark_safe(f'<img src={obj.image.url} width="50" height="60"')
+
+    get_image.short_description = 'Товар'
 
 
 admin.site.site_header = 'Управление cinema'

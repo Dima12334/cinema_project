@@ -32,13 +32,19 @@ from django.core.mail import send_mail
 #     return redirect(film.get_absolute_url())
 
 
-class HomeView(ListView):
+class Store:
+
+    def get_buffet(self):
+        return Buffet.objects.all()
+
+
+class HomeView(Store, ListView):
     model = Film
     template_name = 'cinema_app/index.html'
     context_object_name = 'films'
 
     def get_context_data(self, **kwargs):
-        kwargs['films'] = Film.objects.all().order_by('film_title')
+        kwargs['films'] = Film.objects.filter(premiere=True)
         return super().get_context_data(**kwargs)
 
 
@@ -50,7 +56,7 @@ class FilmDetailView(DetailView):
 class Search(ListView):
 
     def get_queryset(self):
-        return Film.objects.filter(city_name__icontains=self.request.GET.get("q"))
+        return Film.objects.filter(city_name__icontains=self.request.GET.get("q"), premiere=False)
 
     # def get_context_data(self, *args, **kwargs):
     #     context = super().get_context_data(*args, **kwargs)

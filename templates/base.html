@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-{% load static %}
 <html lang="en">
+{% load static %}
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %} {% endblock %}</title>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" media="all">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
@@ -24,31 +24,31 @@
               <ul class = "offers">
                 <li class = "offers-inside">
                     {% url 'home' as url_home %}
-                    <a class="a {% if url_home == request.path %} active {% endif %}" href="{{ url_home }}">Головна</a>
+                    <a class="a-base {% if url_home == request.path %} active {% endif %}" href="{{ url_home }}">Головна</a>
                 </li>
 
                 {% if request.user.is_authenticated %}
                   <li class = "offers-inside">
                       {% url 'account_logout' as url_logout_page %}
-                    <a class="a {% if url_logout_page == request.path %} active {% endif %}" href="{{ url_logout_page }}">Вийти</a>
+                    <a class="a-base {% if url_logout_page == request.path %} active {% endif %}" href="{{ url_logout_page }}">Вийти</a>
                   </li>
                   <li class = "offers-inside">
-                    <a class="a active" >Ласкаво просимо, {{request.user}}</a>
+                    <a class="a-base active" >Ласкаво просимо, {{request.user}}</a>
                   </li>
                 {% else %}
                   <li class = "offers-inside">
                       {% url 'account_login' as url_login_page %}
-                    <a class="a {% if url_login_page == request.path %} active {% endif %}" href="{{ url_login_page }}">Ввійти</a>
+                    <a class="a-base {% if url_login_page == request.path %} active {% endif %}" href="{{ url_login_page }}">Ввійти</a>
                   </li>
                   <li class = "offers-inside">
                       {% url 'account_signup' as url_register_page %}
-                    <a class="a {% if url_register_page == request.path %} active {% endif %}" href="{{ url_register_page }}">Зареєструватися</a>
+                    <a class="a-base {% if url_register_page == request.path %} active {% endif %}" href="{{ url_register_page }}">Зареєструватись</a>
                   </li>
                 {% endif %}
               </ul>
 
-              <form action="{% url 'search' %}" method="get" class="d-flex editContent">
-                  <input type="text" placeholder="Введите город" name="q" style="height: 30px; margin-top:15px;width: 200px; border-radius:3px">
+              <form action="{% url 'search' %}" method="get" class="d-flex">
+                  <input type="text" placeholder="Місто, у якому ваш кінотеатр" name="q" style="height: 30px; width: 250px; margin-top:15px; border-radius:3px">
               </form>
             </div>
         </header>
@@ -63,10 +63,10 @@
                 <span style="padding-right: 35px;">Підтримка клієнтів:<br>Наш телефон:+38066-311-4185<br>Email:ticketfree@gmail.com</span>
                <div>
                    <span>Наші соц.мережі:</span>
-                   <img src="{% static 'images/facebook.jpg' %}">
-                   <img src="{% static 'images/telegram.jpg' %}">
-                   <img src="{% static 'images/instagram.jpg' %}">
-                   <img src="{% static 'images/youtube.jpg' %}">
+                   <img src="{% static 'images/facebook.png' %}">
+                   <img src="{% static 'images/telegram.png' %}">
+                   <img src="{% static 'images/instagram.png' %}">
+                   <img src="{% static 'images/youtube.png' %}">
                </div>
             </div>
         </footer>

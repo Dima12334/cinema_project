@@ -9,7 +9,7 @@
                 <div class="col-md-4 product-men">
                     <div class="product-shoe-info editContent mt-lg-4">
                         <div class="men-thumb-item text-center">
-                            <img src="{{ film.poster.url }}" class="img-fluid" width="200" height="240" alt="">
+                            <img src="{{ film.poster.url }}" class="img-fluid" style="border-radius: 5px;" width="200" height="240" alt="">
                             <p>{{ film.film_title }}</p>
                             <p>Ціна квитка: {{ film.ticket_price }}</p>
                             <p>Кінозал номер {{ film.hall }}</p>
@@ -65,6 +65,8 @@
                 {% else %}
                     <h4>Для того щоб залишити відгук, <a href="{% url 'account_login'%}">увійдіть</a> у свій акаунт або <a href="{% url 'account_signup'%}">зареєструтеся.</a></h4>
                 {% endif %}
+
+                <hr size=6px width=1000px color="#9f2939" style="margin-top: 60px;">
 
                 {% for review in film.review_set.all %}
                     <div class="media py-5 ">
@@ -164,9 +166,8 @@
         <button form="buy_form" type="submit" class="btn btn-primary">Придбати квиток на {{ film.film_title }}</button>
       </div>
 
-          <div class="footer">
-				<div class="paysystem " style="display:flex;flex-direction:row;justify-content:center;
-				    width: 100%;margin-left: auto; margin-right: auto;padding-bottom:15px">
+          <div class="">
+				<div class="paysystem">
 					<div class="item" style="display:flex;flex-direction:column;height:80px;justify-content:space-between;
 					margin-right:65px">
 						<div class="image_wrap" style="text-align:center;">

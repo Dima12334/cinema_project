@@ -12,7 +12,7 @@
 
     <div class="comments multiple-items" id="comments">
         <div class="" style=" text-align: center; padding-top: 30px;" aria-hidden="true">
-            <img src="static/images/film.jpg" style="width: 280px; height: 420px; margin-left: 80px;">
+            <img src="static/images/film.jpg" style="width: 280px; height: 420px; margin-left: 80px; border-radius: 5px;">
             <h3>Бетмен</h3>
         </div>
         <div class="" style=" text-align: center; padding-top: 30px;" aria-hidden="true">
@@ -43,7 +43,7 @@
         <h2>Найближчі прем'єри фільмів:</h2>
         <div class="prokat-films">
             <div class="prokat-film">
-                <img src="static/images/film.jpg" style="width: 200px;">
+                <img src="static/images/film.jpg" style="border-radius: 5px; width: 200px;">
                 <h3>Бетмен</h3>
             </div>
             <div class="prokat-film">
@@ -76,36 +76,14 @@
             <li>Бар:</li>
         </ul>
         <div class="meal">
-            <div class="food">
-                <img src="static/images/popcorn.PNG" style="width: 200px;">
-                <p>Розмір:<span style="padding-left:5px;">Великий</span></p>
-                <span>Ціна:<span style="padding-left:5px;">200грн</span></span>
-            </div>
-            <div class="food">
-                <img src="static/images/popcorn.PNG" style="width: 200px;">
-                <p>Розмір:<span style="padding-left:5px;">Середній</span></p>
-                <span>Ціна:<span style="padding-left:5px;">170грн</span></span>
-            </div>
-            <div class="food">
-                <img src="static/images/popcorn.PNG" style="width: 200px;">
-                <p>Розмір:<span style="padding-left:5px;">Маленький</span></p>
-                <span>Ціна:<span style="padding-left:5px;">120грн</span></span>
-            </div>
-            <div class="food">
-                <img src="static/images/cola.jpg" style="width: 200px;">
-                <p>Розмір:<span style="padding-left:5px;">Великий</span></p>
-                <span>Ціна:<span style="padding-left:5px;">200грн</span></span>
-            </div>
-            <div class="food">
-                <img src="static/images/cola.jpg" style="width: 200px;">
-                <p>Розмір:<span style="padding-left:5px;">Середній</span></p>
-                <span>Ціна:<span style="padding-left:5px;">170грн</span></span>
-            </div>
-            <div class="food">
-                <img src="static/images/cola.jpg" style="width: 200px;">
-                <p>Розмір:<span style="padding-left:5px;">Маленький</span></p>
-                <span>Ціна:<span style="padding-left:5px;">120грн</span></span>
-            </div>
+            {% for el in view.get_buffet %}
+                <div class="food">
+                    <img src="{{ el.image.url }}" style="width: 200px; height: 250px; border-radius: 5px;">
+                    <p>{{ el.name }}</p>
+                    <p>Розмір:<span style="padding-left:5px;">{{ el.size}}</span></p>
+                    <p>Ціна:<span style="padding-left:5px;">{{ el.price}} грн</span></p>
+                </div>
+            {% endfor %}
         </div>
     </div>
 
