@@ -39,7 +39,7 @@ class Rating(models.Model):
 
 
 class Film(models.Model):
-    film_title = models.CharField(max_length=50, verbose_name='Назва фільму')
+    film_title = models.CharField(max_length=200, verbose_name='Назва фільму')
     ticket_price = models.IntegerField(verbose_name='Ціна квитка')
     hall = models.ForeignKey(CinemaHall, on_delete=models.CASCADE, verbose_name='Зал', blank=True,
                              null=True)  # number_hall
@@ -50,11 +50,11 @@ class Film(models.Model):
     city_name = models.CharField(max_length=100, verbose_name='Місто', null=True)
     age = models.IntegerField(verbose_name='Вік', null=True)
     year = models.IntegerField(verbose_name='Рік', null=True)
-    director = models.CharField(max_length=40, verbose_name='Режисер', null=True)
+    director = models.CharField(max_length=100, verbose_name='Режисер', null=True)
     rental_period_from = models.DateField(auto_now=False, verbose_name='Прокат від', null=True)
     rental_period_to = models.DateField(auto_now=False, verbose_name='Прокат до', null=True)
-    language = models.CharField(max_length=50, verbose_name='Мова', null=True)
-    genre = models.CharField(max_length=50, verbose_name='Жанр', null=True)
+    language = models.CharField(max_length=100, verbose_name='Мова', null=True)
+    genre = models.CharField(max_length=100, verbose_name='Жанр', null=True)
     duration = models.FloatField(verbose_name='Тривалість', null=True)
     production = models.CharField(max_length=100, verbose_name='Виробництво', null=True)
     main_roles = models.TextField(verbose_name='У головних ролях', null=True)

@@ -2,7 +2,11 @@
 body{
     margin: 0px;
     background: #f5f6fb;
+    font-family: 'Charis SIL', serif;
+}
+.title-set{
     font-family: 'Playfair Display', serif;
+    text-align: center;
 }
 .a-base{
     text-decoration: none;
@@ -121,8 +125,7 @@ a:hover{
     width: fit-content;
 }
 .men-thumb-item{
-    width: 200px;
-
+    width: 220px;
 }
 .item-info-product{
     width: 800px;

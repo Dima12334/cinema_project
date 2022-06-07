@@ -32,19 +32,22 @@ from django.core.mail import send_mail
 #     return redirect(film.get_absolute_url())
 
 
-class Store:
+class StoreSlider:
 
     def get_buffet(self):
         return Buffet.objects.all()
 
+    def get_slider(self):
+        return Film.objects.filter(premiere=False, city_name='Харків')
 
-class HomeView(Store, ListView):
+
+class HomeView(StoreSlider, ListView):
     model = Film
     template_name = 'cinema_app/index.html'
     context_object_name = 'films'
 
     def get_context_data(self, **kwargs):
-        kwargs['films'] = Film.objects.filter(premiere=True)
+        kwargs['films'] = Film.objects.filter(premiere=True).order_by('rental_period_from')
         return super().get_context_data(**kwargs)
 
 
@@ -56,7 +59,7 @@ class FilmDetailView(DetailView):
 class Search(ListView):
 
     def get_queryset(self):
-        return Film.objects.filter(city_name__icontains=self.request.GET.get("q"), premiere=False)
+        return Film.objects.filter(city_name__icontains=self.request.GET.get("q"), premiere=False).order_by('session')
 
     # def get_context_data(self, *args, **kwargs):
     #     context = super().get_context_data(*args, **kwargs)
@@ -89,7 +92,7 @@ class BuyTicketView(View):
             form.film = film
             form.hall = hall
             form.save()
-        return redirect(film.get_absolute_url()) # post_message(request, pk)
+        return redirect(film.get_absolute_url())  # post_message(request, pk)
 
 
 class BookTicketView(View):
@@ -103,4 +106,4 @@ class BookTicketView(View):
             form.film = film
             form.hall = hall
             form.save()
-        return redirect(film.get_absolute_url()) # post_message(request, pk)
+        return redirect(film.get_absolute_url())  # post_message(request, pk)

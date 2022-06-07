@@ -4,32 +4,41 @@
 
 {% block content %}
 
+    {% if messages %}
+        <div class="alert alert-success">
+            {% for message in messages %}
+              {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <div class="left-ads-display col-lg-9">
         <div class="row">
-                <div class="col-md-4 product-men">
-                    <div class="product-shoe-info editContent mt-lg-4">
-                        <div class="men-thumb-item text-center">
-                            <img src="{{ film.poster.url }}" class="img-fluid" style="border-radius: 5px;" width="200" height="240" alt="">
-                            <p>{{ film.film_title }}</p>
-                            <p>Ціна квитка: {{ film.ticket_price }}</p>
-                            <p>Кінозал номер {{ film.hall }}</p>
-                            <p>Сеанс на {{ film.session }}</p>
-                            <p>Вік: {{ film.age }}</p>
-                            <p>Рік: {{ film.year }}</p>
-                            <p>Режисер: {{ film.director }}</p>
-                            <p>В прокаті від {{ film.rental_period_from }} до {{ film.rental_period_to }} </p>
-                            <p>Мова озвучки: {{ film.language }}</p>
-                            <p>Жанр: {{ film.genre }}</p>
-                            <p>Триває {{ film.duration }} год.</p>
-                            <p>Виробництво: {{ film.production }}</p>
-                            <p>Головні ролі: {{ film.main_roles }}</p>
-                            <p>Рейтинг фільму: {{ film.rating }}/5 </p>
-                        </div>
-                        <div class="item-info-product">
-                            <h5 style="margin:0"><div class="text-center">Сюжет: <br><br></div>{{ film.story }}</h5>
-                        </div>
+            <div class="col-md-4 product-men">
+                <div class="product-shoe-info editContent mt-lg-4">
+                    <div class="men-thumb-item text-center" style="font-size: 18px;">
+                        <img src="{{ film.poster.url }}" class="img-fluid" style="border-radius: 5px;" width="220" height="250" alt="">
+                        <p>{{ film.film_title }}</p>
+                        <p>Ціна квитка: {{ film.ticket_price }}грн</p>
+                        <p>Кінозал номер {{ film.hall }}</p>
+                        <p>Сеанс на {{ film.session }}</p>
+                        <p>Вік: {{ film.age }}+</p>
+                        <p>Рік: {{ film.year }}</p>
+                        <p>Режисер: {{ film.director }}</p>
+                        <p>В прокаті від {{ film.rental_period_from }} до {{ film.rental_period_to }} </p>
+                        <p>Мова озвучки: {{ film.language }}</p>
+                        <p>Жанр: {{ film.genre }}</p>
+                        <p>Триває {{ film.duration }} год.</p>
+                        <p>Виробництво: {{ film.production }}</p>
+                        <p>Рейтинг фільму: {{ film.rating }}/5 </p>
+                    </div>
+                    <div class="item-info-product font-story" style="font-size: 21px;">
+                        <h5 style="margin:0"><div class="text-center">Сюжет: <br><br></div>{{ film.story }}</h5>
+                        <br><br>
+                        <h5 style="margin:0"><div class="text-center">Головні ролі: <br><br></div>{{ film.main_roles }}</h5>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
 
@@ -47,7 +56,6 @@
                     <h4>Для того щоб придбати квиток, <a href="{% url 'account_login'%}">увійдіть</a> у свій акаунт або <a href="{% url 'account_signup'%}">зареєструтеся.</a></h4>
                     <h4>Для того щоб забронювати квиток, <a href="{% url 'account_login'%}">увійдіть</a> у свій акаунт або <a href="{% url 'account_signup'%}">зареєструтеся.</a></h4>
                 {% endif %}
-
             </div> <!--  //contact form grid ends here -->
             <div class="leave-comments">
                 <h3 class="editContent" style="outline: none; cursor: inherit;">
@@ -60,7 +68,7 @@
                             <label for="contactcomment" class="editContent">Ваш відгук *</label>
                             <textarea class="form-control border mt-2" rows="3" name="text" id="contactcomment" style="width: 1200px" required=""></textarea>
                         </div>
-                        <button type="button" class="mt-3 publish"> Опублікувати </button>
+                        <button type="submit" class="mt-3 py-3 publish"> Опублікувати </button>
                     </form>
                 {% else %}
                     <h4>Для того щоб залишити відгук, <a href="{% url 'account_login'%}">увійдіть</a> у свій акаунт або <a href="{% url 'account_signup'%}">зареєструтеся.</a></h4>

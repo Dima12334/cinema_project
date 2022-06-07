@@ -6,6 +6,7 @@ from .models import *
 
 # Register your models here.
 
+
 @admin.register(TimeSession)
 class TimeSessionAdmin(admin.ModelAdmin):
     list_display = ['time_session']
@@ -30,22 +31,19 @@ class ReviewInline(admin.TabularInline):
 
 @admin.register(Film)
 class FilmAdmin(admin.ModelAdmin):
-    list_display = ['film_title', 'ticket_price', 'hall', 'story', 'session', 'get_image', 'city_name', 'age', 'year',
-                    'director', 'rental_period_from', 'rental_period_to', 'language', 'genre',
-                    'duration', 'production', 'main_roles', 'rating', 'premiere']
-    list_display_links = ['film_title', 'ticket_price', 'hall', 'story', 'session', 'city_name', 'age', 'year',
-                          'director', 'rental_period_from', 'rental_period_to', 'language', 'genre',
-                          'duration', 'production', 'main_roles', 'rating']
+    list_display = ['film_title', 'rating', 'hall', 'session', 'get_image', 'city_name', 'age',
+                    'director', 'rental_period_from', 'rental_period_to', 'premiere']
+    list_display_links = ['film_title', 'rating', 'hall', 'session', 'get_image', 'city_name', 'age',
+                          'director', 'rental_period_from', 'rental_period_to']
     ordering = ['film_title']
     readonly_fields = ['get_image']
-    list_per_page = 7
+    list_per_page = 10
     inlines = [ReviewInline]
     save_on_top = True
     save_as = True
 
     def get_image(self, obj):
         return mark_safe(f'<img src={obj.poster.url} width="50" height="60"')
-
     get_image.short_description = 'Постер'
 
 
