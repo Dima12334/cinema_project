@@ -102,7 +102,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="{% url 'buy-ticket' film.id film.hall %}" id="buy_form" method="post">
+        <form action="{% url 'buybook-ticket' film.id film.hall %}" id="buy_form" method="post">
           {% csrf_token %}
           <div class="form-group editContent">
               <div class="mt-1">
@@ -210,7 +210,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="{% url 'book-ticket' film.id film.hall %}" id="book_form" method="post">
+        <form action="{% url 'buybook-ticket' film.id film.hall %}" id="book_form" method="post">
           {% csrf_token %}
           <div class="form-group editContent">
               <div class="mt-1">
@@ -225,7 +225,7 @@
           </div>
         </form>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" style="justify-content:center;">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
         <button form="book_form" type="submit" class="btn btn-primary">Забронювати квиток на {{ film.film_title }}</button>
       </div>

@@ -53,7 +53,7 @@ a:hover{
     transition: 0.3s; 
 }
 .comments{
-    height: 590px;
+    height: 550px;
     width: 92%;
     margin-left: 55px;
     background: #2d2c72;
@@ -75,6 +75,12 @@ a:hover{
     border-radius: 5px;
     box-shadow: 0 0 23px rgb(100, 0, 0,1);
 }
+.prokat-film h3{
+    margin-bottom: 0px;
+}
+.prokat-film h5{
+    margin-top: 5px;
+}
 .prokat-film{
     width: 335px;
     text-align: center;
@@ -93,8 +99,7 @@ a:hover{
 /*Бар*/
 .menu{
     width: 96%;
-    margin-left: 51px;   
-    margin-top: 65px;
+    margin-left: 51px;
     margin-bottom: 50px;
 }
 .choise:hover{
@@ -198,14 +203,15 @@ a:hover{
 .footer{
     background: #9f2939;
     width: 100%;
-    height: 120px;
+    height: 160px;
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
 }
 .footer > img{
     height: 50px;
-    margin-top: 32px;
+    margin-top: auto;
+    margin-bottom: auto;
     margin-left: 25px;
 }
 .social{
@@ -216,31 +222,14 @@ a:hover{
     margin-top: 25px;
 }
 .social img{
-    width: 25px;
-    height: 22px;
+    width: 35px;
+    height: 35px;
     padding: 3px;
     margin: 3px;
 }
 
 /*Стили для django-allauth*/
 
-.registration{
-    width: 900px;
-    height: 450px;
-    background: #2d2c72;
-    margin-left: 19%;
-    box-shadow: 0 0 23px rgb(100, 0, 0,1);
-    text-align: center;
-}
-.registration-info{
-    width: 720px;
-    height: 380px;
-    background: white;
-    position: absolute;
-    left: 385px;
-    top: 35px;
-    border-radius: 18px;
-}
 .registration-button{
     height: 40px;
     width: 210px;
@@ -255,46 +244,49 @@ a:hover{
     background: #b2b2b2;
 }
 
-.reestablish{
-    width: 900px;
-    height: 450px;
-    background: #2d2c72;
-    margin-left: 19%;
-    box-shadow: 0 0 23px rgb(100, 0, 0,1);
-    text-align: center;
-}
-.reestablish-info{
-    width: 720px;
-    height: 380px;
-    background: white;
-    position: absolute;
-    left: 385px;
-    top: 35px;
-    border-radius: 18px;
-}
-.reestablish-form{
-    text-align: left;
-    width: 500px;
-    padding-left: 170px;
-    padding-top: 10px;
-}
-
 .enter{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-radius: 10px;
     width: 900px;
     height: 450px;
     background: #2d2c72;
-    margin-left: 19%;
-    box-shadow: 0 0 23px rgb(100, 0, 0,1);
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 23px rgb(100 0 0);
     text-align: center;
 }
 .enter-info{
+    padding: 20px;
     width: 720px;
     height: 380px;
     background: white;
-    position: absolute;
-    left: 385px;
-    top: 35px;
+    margin-left: auto;
+    margin-right: auto;
     border-radius: 18px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+.navigation{
+    list-style-type: none;
+    padding-left: 10px;
+}
+.navigation-container{
+    padding-top: 10px;
+}
+.navigation-to{
+    text-decoration: none;
+}
+.navigation-to:visited{
+    color: black;
+}
+.navigation-to:hover{
+    color: red;
+    transition: 0.3s;
 }
 
 /*Стили из Bootstrap*/

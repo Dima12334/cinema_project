@@ -3,6 +3,12 @@
 {% block title %} TicketFree Головна {% endblock %}
 
 {% block content %}
+    <ul class="navigation">
+        <li class="navigation-container"><a href="#comments" class="navigation-to">&rArr;<span style="padding: 8px">Зараз у кіно</span>&lArr;</a></li>
+        <li class="navigation-container"><a href="#prokat" class="navigation-to">&rArr;<span style="padding: 8px">Скоро у прокаті</span>&lArr;</a></li>
+        <li class="navigation-container"><a href="#menu" class="navigation-to">&rArr;<span  style="padding: 8px">Бар</span>&lArr;</a></li>
+    </ul>
+
     <div  class="mt-2" style="text-align: center;"><img src="static/images/logo1.jpg"></div>
     <div>
         <h1 class="title-set">Вітаємо Вас у всесвіті TicketFree!</h1>
@@ -20,8 +26,8 @@
 
     <hr size=6px width=1000px color="#9f2939" style="margin-top: 60px;">
 
-    <div class="prokat">
-        <h2 class="title-set">Скоро у прокаті:</h2>
+    <h2 class="title-set">Скоро у прокаті:</h2>
+    <div class="prokat" id="prokat">
         <div class="prokat-films">
             {% for film in films %}
                 <div class="prokat-film" style="font-size: 18px;">
@@ -35,8 +41,8 @@
 
     <hr size=6px width=1000px color="#9f2939" style="margin-top: 60px;">
 
-    <div class="menu">
-        <h2 class="title-set">Бар:</h2>
+    <h2 class="title-set">Бар:</h2>
+    <div class="menu" id="menu">
         <div class="meal">
             {% for el in view.get_buffet %}
                 <div class="food">

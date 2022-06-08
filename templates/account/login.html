@@ -8,12 +8,12 @@
 {% block content %}
 <div class="enter">
   <div class="enter-info">
-    <h1>{% trans "Sign In" %}</h1>
+    <h1 style="margin-bottom:0; margin-top:0;">{% trans "Sign In" %}</h1>
 
     {% get_providers as socialaccount_providers %}
 
     {% if socialaccount_providers %}
-      <p style="padding-left: 10px">{% blocktrans with site.name as site_name %}Please sign in with one
+      <p style="margin-top:5px;">{% blocktrans with site.name as site_name %}Please sign in with one
         of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
         for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
@@ -30,17 +30,17 @@
       {% include "socialaccount/snippets/login_extra.html" %}
 
     {% else %}
-      <p style="padding-left: 10px">{% blocktrans %}Якщо ви ще не створили обліковий запис, то спочатку
+      <p style="margin-top:5px; margin-bottom:5px;">{% blocktrans %}Якщо ви ще не створили обліковий запис, то спочатку
         <a href="{{ signup_url }}">зареєструйтеся</a>.{% endblocktrans %}</p>
     {% endif %}
 
-    <form class="enter-form" method="POST" action="{% url 'account_login' %}">
+    <form class="" method="POST" action="{% url 'account_login' %}">
       {% csrf_token %}
       {{ form.as_p }}
       {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
       {% endif %}
-      <button class="registration-button" type="submit">{% trans "Sign In" %}</button>
+      <button class="registration-button mt-0 mb-2" type="submit">{% trans "Sign In" %}</button>
       <br>
       <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
     </form>

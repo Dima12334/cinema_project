@@ -2,14 +2,14 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+{% block title %} Вийти з акаунту {% endblock %}
 
 {% block content %}
 <div class="enter">
   <div class="enter-info">
-    <h1>{% trans "Sign Out" %}</h1>
+    <h1 style="margin-top: 0;">{% trans "Sign Out" %}</h1>
 
-    <p>{% trans 'Are you sure you want to sign out?' %}</p>
+    <p style="margin-top: 0;">{% trans 'Are you sure you want to sign out?' %}</p>
 
     <form method="post" action="{% url 'account_logout' %}">
       {% csrf_token %}

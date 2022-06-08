@@ -78,13 +78,14 @@ class AddReview(View):
             form.name = self.request.user.username
             form.email = self.request.user.email
             form.save()
+            messages.success(request, 'Ваш відгук залишено!')
         return redirect(film.get_absolute_url())
 
 
-class BuyTicketView(View):
+class BuyBookTicketView(View):
 
     def post(self, request, pk, hall):
-        form = BuyTicketForm(request.POST)
+        form = BuyBookTicketForm(request.POST)
         film = Film.objects.get(id=pk)
         hall = CinemaHall.objects.get(number_hall=hall)
         if form.is_valid():
@@ -92,18 +93,5 @@ class BuyTicketView(View):
             form.film = film
             form.hall = hall
             form.save()
-        return redirect(film.get_absolute_url())  # post_message(request, pk)
-
-
-class BookTicketView(View):
-
-    def post(self, request, pk, hall):
-        form = BookTicketForm(request.POST)
-        film = Film.objects.get(id=pk)
-        hall = CinemaHall.objects.get(number_hall=hall)
-        if form.is_valid():
-            form = form.save(commit=False)
-            form.film = film
-            form.hall = hall
-            form.save()
+            messages.success(request, 'Квиток списано!')
         return redirect(film.get_absolute_url())  # post_message(request, pk)
