@@ -14,9 +14,16 @@ from django.db.models import Q
 from .forms import *
 from .models import *
 from django.core.mail import send_mail
+import random
+import string
 
 
-# def post_message(request, pk):
+def generation_ticket():
+    letters_and_digits = string.ascii_uppercase + string.digits
+    rand_string = ''.join(random.sample(letters_and_digits, 7))
+
+
+# def post_message(generation_ticket, request, pk):
 #
 #     form = PostMessageForm()
 #     if request.method == 'POST':
@@ -24,8 +31,8 @@ from django.core.mail import send_mail
 #         film = Film.objects.get(id=pk)
 #         if form.is_valid():
 #             form.email = settings.EMAIL_HOST_USER
-#             subject = 'Code Band'
-#             message = 'Sending Email through Gmail'
+#             subject = f'Вітаю! Це адмін сайту TicketFree'
+#             message = f'{request.user.username}, ваш номер квитка - {rand_string}'
 #             recipient = form.email
 #             send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
 #             messages.success(request, 'Success!')
@@ -93,5 +100,7 @@ class BuyBookTicketView(View):
             form.film = film
             form.hall = hall
             form.save()
-            messages.success(request, 'Квиток списано!')
+            messages.success(request, 'Квиток списано! Номер квитка буде надіслано вам на пошту за якою ви ввійшли '
+                                      'в акаунт. Якщо номер квитка не надійшов за 5 хвилин, перевірте папку "Спам" або '
+                                      'зверніться до технічної підтримки')
         return redirect(film.get_absolute_url())  # post_message(request, pk)
