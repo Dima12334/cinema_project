@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, View
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.models import User, Group, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -16,6 +17,9 @@ from .models import *
 from django.core.mail import send_mail
 import random
 import string
+
+
+User = get_user_model()
 
 
 def generation_ticket():
@@ -84,6 +88,8 @@ class AddReview(View):
             form.film = film
             form.name = self.request.user.username
             form.email = self.request.user.email
+            if request.POST.get("parent", None):
+                form.parent_id = int(request.POST.get("parent"))
             form.save()
             messages.success(request, 'Ваш відгук залишено!')
         return redirect(film.get_absolute_url())
@@ -104,7 +110,3 @@ class BuyBookTicketView(View):
                                       'в акаунт. Якщо номер квитка не надійшов за 5 хвилин, перевірте папку "Спам" або '
                                       'зверніться до технічної підтримки')
         return redirect(film.get_absolute_url())  # post_message(request, pk)
-
-
-class Test:
-    pass

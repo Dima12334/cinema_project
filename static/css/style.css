@@ -200,6 +200,10 @@ a:hover{
     height: 70px;
     width: 70px;
 }
+.child-review{
+    margin-top: 25px;
+    margin-lef: 30px
+}
 .footer{
     background: #9f2939;
     width: 100%;

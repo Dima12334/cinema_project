@@ -62,11 +62,12 @@
                     <span class="sub-tittle editContent"
                     style="outline: none; cursor: inherit;"></span>Залишити відгук</h3>
                 {% if request.user.is_authenticated %}
-                    <form action="{% url 'add-review' film.id %}" method="post" class="mt-4">
+                    <form action="{% url 'add-review' film.id %}" id="formReview" method="post" class="mt-4">
                         {% csrf_token %}
+                        <input type="hidden" name="parent" id="contactparent" value="">
                         <div class="form-group editContent">
                             <label for="contactcomment" class="editContent">Ваш відгук *</label>
-                            <textarea class="form-control border mt-2" rows="3" name="text" id="contactcomment" style="width: 1200px" required=""></textarea>
+                            <textarea id="contactcomment" class="form-control border mt-2" rows="3" name="text"  style="width: 1200px" required=""></textarea>
                         </div>
                         <button type="submit" class="mt-3 py-3 publish"> Опублікувати </button>
                     </form>
@@ -74,20 +75,42 @@
                     <h4>Для того щоб залишити відгук, <a href="{% url 'account_login'%}">увійдіть</a> у свій акаунт або <a href="{% url 'account_signup'%}">зареєструтеся.</a></h4>
                 {% endif %}
 
-                <hr size=6px width=1000px color="#9f2939" style="margin-top: 60px;">
+                <hr size=6px width=1000px color="#9f2939" style="margin-top: 50px; margin-bottom: 20px;">
 
-                {% for review in film.review_set.all %}
-                    <div class="media py-5 ">
+                {% for review in film.get_review %}
+                    <div class="media py-3 ">
                         <img src="media/cinema_app/static/cinema_app/images/user.png" alt="image" class="media-img">
-                        <div class="media-body">
+                        <div class="">
                             <h5 class="mt-0 editContent">
                                 {{ review.name }}
                             </h5>
                             <p class="mt-2 editContent">
                                 {{ review.text }}
                             </p>
+                            <a href="#formReview" onclick="addReview('{{ review.name }}', '{{ review.id }}')">
+                                Відповісти на коментар</a>
+
+                            {% for rew in review.review_set.all %}
+                                <div class="child-review">
+                                    <div class="media py-3">
+                                        <img src="media/cinema_app/static/cinema_app/images/user.png" alt="image" class="media-img">
+                                        <div class="">
+                                            <h5 class="mt-0 editContent">
+                                                {{ rew.name }}
+                                            </h5>
+                                            <p class="mt-2 editContent">
+                                                {{ rew.text }}
+                                            </p>
+                                            <a href="#formReview" onclick="addReview('{{ review.name }}', '{{ review.id }}')">
+                                                Відповісти на коментар</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
+
+                    <hr size=3px width=1000px color="#9f2939">
                 {% endfor %}
             </div>
         </div>
@@ -233,4 +256,10 @@
   </div>
 </div>
 
+<script>
+    function addReview(name, id) {
+    document.getElementById("contactparent").value = id;
+    document.getElementById("contactcomment").innerText = `${name}, `
+    }
+</script>
 {% endblock %}
