@@ -110,7 +110,3 @@ class BuyBookTicketView(View):
                                       'в акаунт. Якщо номер квитка не надійшов за 5 хвилин, перевірте папку "Спам" або '
                                       'зверніться до технічної підтримки')
         return redirect(film.get_absolute_url())  # post_message(request, pk)
-
-
-class Test:
-    pass
