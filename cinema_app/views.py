@@ -14,10 +14,10 @@ from django.conf import settings
 from django.db.models import Q
 from .forms import *
 from .models import *
+from .services import LeaveEmotion
 from django.core.mail import send_mail
 import random
 import string
-
 
 User = get_user_model()
 
@@ -94,6 +94,21 @@ class AddReview(View):
             messages.success(request, 'Ваш відгук залишено!')
         return redirect(film.get_absolute_url())
 
+    # model = Review
+    # template_name = 'cinema_app/film_detail.html'
+    # form_class = ReviewForm
+    # success_msg = 'Ваш відгук залишено!'
+    #
+    # def form_valid(self, form):
+    #     form = form.save(commit=False)
+    #     form.name = self.request.user.username
+    #     form.email = self.request.user.email
+    #     form.film = Film.objects.get(id=pk)
+    #     if request.POST.get("parent", None):
+    #         form.parent_id = int(request.POST.get("parent"))
+    #     form.save()
+    #     return super().form_valid(form)
+
 
 class BuyBookTicketView(View):
 
@@ -110,3 +125,23 @@ class BuyBookTicketView(View):
                                       'в акаунт. Якщо номер квитка не надійшов за 5 хвилин, перевірте папку "Спам" або '
                                       'зверніться до технічної підтримки')
         return redirect(film.get_absolute_url())  # post_message(request, pk)
+
+
+class AddLike(LoginRequiredMixin, View, LeaveEmotion):
+    login_url = reverse_lazy('account_signup')
+
+    def post(self, request, pk_rev, pk_film, *args, **kwargs):
+        review = Review.objects.get(pk=pk_rev)
+        film = Film.objects.get(id=pk_film)
+        LeaveEmotion.update_like(self, request, review)
+        return redirect(film.get_absolute_url())
+
+
+class AddDislike(LoginRequiredMixin, View, LeaveEmotion):
+    login_url = reverse_lazy('account_signup')
+
+    def post(self, request, pk_rev, pk_film, *args, **kwargs):
+        review = Review.objects.get(pk=pk_rev)
+        film = Film.objects.get(id=pk_film)
+        LeaveEmotion.update_dislike(self, request, review)
+        return redirect(film.get_absolute_url())
