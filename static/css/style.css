@@ -196,13 +196,17 @@ a:hover{
     flex-direction: row;
     gap: 25px;
 }
-.media-img{
-    height: 70px;
-    width: 70px;
+.like-img{
+    height: 30px;
+    width: 30px;
 }
 .child-review{
     margin-top: 25px;
-    margin-lef: 30px
+    margin-left: 30px;
+}
+.media-img{
+    height: 70px;
+    width: 70px;
 }
 .footer{
     background: #9f2939;

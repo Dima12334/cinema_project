@@ -58,7 +58,7 @@
                 {% endif %}
             </div> <!--  //contact form grid ends here -->
             <div class="leave-comments">
-                <h3 class="editContent" style="outline: none; cursor: inherit;">
+                <h3 class="editContent" style="outline: none; cursor: inherit;" id="labelReview">
                     <span class="sub-tittle editContent"
                     style="outline: none; cursor: inherit;"></span>Залишити відгук</h3>
                 {% if request.user.is_authenticated %}
@@ -80,29 +80,60 @@
                 {% for review in film.get_review %}
                     <div class="media py-3 ">
                         <img src="media/cinema_app/static/cinema_app/images/user.png" alt="image" class="media-img">
-                        <div class="">
+                        <div>
                             <h5 class="mt-0 editContent">
                                 {{ review.name }}
                             </h5>
                             <p class="mt-2 editContent">
                                 {{ review.text }}
                             </p>
-                            <a href="#formReview" onclick="addReview('{{ review.name }}', '{{ review.id }}')">
-                                Відповісти на коментар</a>
-
+                            <div style="display: flex; flex-direction: column">
+                                <div>
+                                    <form action="{% url 'like' review.pk film.id %}"  method="post">
+                                        {% csrf_token %}
+                                        <button type="submit"><img src="media/cinema_app/static/cinema_app/images/like.jpg" alt="like" class="like-img"></button>
+                                    </form>
+                                    <form action="{% url 'dislike' review.pk film.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit"><img src="media/cinema_app/static/cinema_app/images/dislike.jpg" alt="dislike" class="like-img"></button>
+                                    </form>
+                                </div>
+                                <div>
+                                    <h5>Лайки: {{ review.total_likes }}</h5>
+                                    <h5>Дизлайки: {{ review.total_dislikes }}</h5>
+                                </div>
+                                <a href="#labelReview" onclick="addReview('{{ review.name }}', '{{ review.id }}')">
+                                    Відповісти на коментар</a>
+                            </div>
                             {% for rew in review.review_set.all %}
                                 <div class="child-review">
                                     <div class="media py-3">
                                         <img src="media/cinema_app/static/cinema_app/images/user.png" alt="image" class="media-img">
-                                        <div class="">
+                                        <div>
                                             <h5 class="mt-0 editContent">
                                                 {{ rew.name }}
                                             </h5>
                                             <p class="mt-2 editContent">
                                                 {{ rew.text }}
                                             </p>
-                                            <a href="#formReview" onclick="addReview('{{ review.name }}', '{{ review.id }}')">
-                                                Відповісти на коментар</a>
+                                            <div style="display: flex; flex-direction: column">
+                                                <div>
+                                                    <form action="{% url 'like' rew.pk film.id %}"  method="post">
+                                                        {% csrf_token %}
+                                                        <button type="submit"><img src="media/cinema_app/static/cinema_app/images/like.jpg" alt="like" class="like-img"></button>
+                                                    </form>
+                                                    <form action="{% url 'dislike' rew.pk film.id %}" method="post">
+                                                        {% csrf_token %}
+                                                        <button type="submit"><img src="media/cinema_app/static/cinema_app/images/dislike.jpg" alt="dislike" class="like-img"></button>
+                                                    </form>
+                                                </div>
+                                                <div>
+                                                    <h5>Лайки: {{ rew.total_likes }}</h5>
+                                                    <h5>Дизлайки: {{ rew.total_dislikes }}</h5>
+                                                </div>
+                                                <a href="#labelReview" onclick="addReview('{{ review.name }}', '{{ review.id }}')">
+                                                    Відповісти на коментар</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

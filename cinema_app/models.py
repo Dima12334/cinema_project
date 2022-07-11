@@ -1,5 +1,9 @@
 from django.db import models
 from django.urls import reverse
+from django.conf import settings
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.models import User
 
 
 class TimeSession(models.Model):
@@ -83,6 +87,8 @@ class Review(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, verbose_name='Назва фільму', blank=True,
                              null=True)  # film_title
     parent = models.ForeignKey('self', verbose_name="Батько", on_delete=models.SET_NULL, blank=True, null=True)
+    likes = models.ManyToManyField(User, blank=True, related_name='likes')
+    dislikes = models.ManyToManyField(User, blank=True, related_name='dislikes')
 
     class Meta:
         verbose_name = 'Відгук'
@@ -90,6 +96,14 @@ class Review(models.Model):
 
     def __str__(self):
         return f'{self.film} -- {self.text}'
+
+    @property
+    def total_likes(self):
+        return self.likes.count()
+
+    @property
+    def total_dislikes(self):
+        return self.dislikes.count()
 
 
 class Ticket(models.Model):
